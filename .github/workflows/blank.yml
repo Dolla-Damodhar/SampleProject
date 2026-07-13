@@ -1,4 +1,4 @@
-name: Sample Project CI
+name: Python CI Pipeline
 
 on:
   push:
@@ -7,17 +7,24 @@ on:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     steps:
+
       - name: Checkout Repository
         uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify Python Installation
+        run: python --version
 
       - name: Show Repository Files
         run: ls -la
 
-      - name: Print Welcome Message
-        run: echo "Welcome to GitHub Actions!"
-
-      - name: Show Current Directory
-        run: pwd
+      - name: Run Python Application
+        run: python app.py
